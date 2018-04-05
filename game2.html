@@ -13,18 +13,15 @@
      */
      var canvas = document.getElementById('gameCanvas');
      var canvasContext = canvas.getContext('2d');
-     
-     const BLOCK_HEIGHT = 50;
-     const BLOCK_WIDTH = 50;
-     
+    
      var player = {
-         height: 30,
-         width: 30,
+         height: 10,
+         width: 10,
          x: 0,
          y: 0,
          color: "green",
          speed: 10
-         }
+         };
      
      var Keys = {
          up: false,
@@ -33,23 +30,33 @@
          right: false
      };
      
+     const Block = {
+         width: 50,
+         height: 50
+         
+     };
+     
      //----------------------------------------------------
      
      document.addEventListener("keydown", function(event) {
          //left
          if(event.keyCode == 37){
+             collisions();
              player.x -= player.speed;
          }
          //top
          if(event.keyCode == 38){
+             collisions();
              player.y -= player.speed;
          }
          //right
          if(event.keyCode == 39){
+             collisions();
              player.x += player.speed;
          }
          //bottom
          if(event.keyCode == 40){
+             collisions();
              player.y += player.speed;
          }
      });
@@ -83,32 +90,39 @@
      function drawEverything(){
          renderCanvas();
          drawBlock(100,100);
-         drawBlock(100+BLOCK_WIDTH,100);
-         drawBlock(100+(BLOCK_WIDTH*2), 100);
-         drawBlock(100+(BLOCK_WIDTH*3), 100);
-         drawBlock(100+(BLOCK_WIDTH*4), 100);
+         drawBlock(100+Block.width,100);
+         drawBlock(100+(Block.width*2), 100);
+         drawBlock(100+(Block.width*3), 100);
+         drawBlock(100+(Block.width*4), 100);
          playerA();
      }
      function moveEverything(){
          if (Keys.up){
+             collisions();
              player.y += player.speed;
+             
          }
          else if (Keys.down){
+             collisions();
              player.y -= player.speed;
          }
          
          if (Keys.left){
+             collisions();
              player.x += player.speed;
+             
          }
          else if (keys.right){
+             collisions();
              player.x -= player.speed;
+             
          }
      }
      function drawBlock(leftX, topY){
          canvasContext.fillStyle = "yellow";
-         canvasContext.fillRect(leftX, topY, BLOCK_WIDTH, BLOCK_HEIGHT);     
+         canvasContext.fillRect(leftX, topY, Block.width, Block.height);     
          canvasContext.fillStyle = "orange";
-         canvasContext.fillRect(leftX+5, topY+5,BLOCK_WIDTH-10,BLOCK_HEIGHT-10);
+         canvasContext.fillRect(leftX+5, topY+5,Block.width-10,Block.height-10);
      }
      function playerA (){
          canvasContext.fillStyle = player.color;
@@ -117,6 +131,14 @@
      function renderCanvas(){
         canvasContext.fillStyle = "black";
         canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+     }
+     function collisions(){
+         if (player.x > 100 && 
+             player.x < 100 + Block.width && 
+             player.y > 100 &&
+             player.y < 100 + Block.height){
+             player.speed = 0;
+         }
      }
  </script>
 </html>
