@@ -1,0 +1,86 @@
+<html>
+ <canvas id="gameCanvas" height="600" width="800"></canvas>
+<style>
+    body{background-color: ivory;}
+    canvas{border: 2px solid red;}
+</style>
+ <script>
+     /*
+     Tbh I have no idea what I'm making here. I'm just throwing stuff at the wall and seeing what sticks, This game will probably be trash. I literally have no idea what kind of game I'm making or how to make it. So yeah. Let's see how this goes.
+     */
+     var canvas = document.getElementById('gameCanvas');
+     var canvasContext = canvas.getContext('2d');
+     
+     const BLOCK_HEIGHT = 50;
+     const BLOCK_WIDTH = 50;
+     
+     var player = {
+         height: 30,
+         width: 30,
+         x: 0,
+         y: 0,
+         color: "green",
+         speed: 10
+         }
+     
+     var Keys = {
+         up: false,
+         down: false,
+         left: false,
+         right: false
+     };
+     
+     //----------------------------------------------------
+     
+     document.addEventListener("keydown", function(event) {
+         //left
+         if(event.keyCode == 37){
+             player.x -= player.speed;
+         }
+         //top
+         if(event.keyCode == 38){
+             player.y -= player.speed;
+         }
+         //right
+         if(event.keyCode == 39){
+             player.x += player.speed;
+         }
+         //bottom
+         if(event.keyCode == 40){
+             player.y += player.speed;
+         }
+     });
+     
+     window.onload = function(){
+         var fps = 60;
+         setInterval(function(){
+             drawEverything();
+         }, 1000/fps);
+     }
+     function drawEverything(){
+         renderCanvas();
+         drawBlock(100,100);
+         drawBlock(100+BLOCK_WIDTH,100);
+         drawBlock(100+(BLOCK_WIDTH*2), 100);
+         drawBlock(100+(BLOCK_WIDTH*3), 100);
+         playerA();
+     }
+     function moveEverything(){
+         
+     }
+     function drawBlock(leftX, topY){
+         canvasContext.fillStyle = "yellow";
+         canvasContext.fillRect(leftX, topY, BLOCK_WIDTH, BLOCK_HEIGHT);     
+         canvasContext.fillStyle = "orange";
+         canvasContext.fillRect(leftX+5, topY+5,BLOCK_WIDTH-10,BLOCK_HEIGHT-10);
+     }
+     function playerA (){
+         canvasContext.fillStyle = player.color;
+         canvasContext.fillRect(player.x, player.y, player.width, player.height);
+     }
+     function renderCanvas(){
+        canvasContext.fillStyle = "black";
+        canvasContext.fillRect(0, 0, canvas.width, canvas.height);
+     }
+ </script>
+</html>
