@@ -1,5 +1,8 @@
 <html>
  <canvas id="gameCanvas" height="600" width="800"></canvas>
+<head>
+    <h1> Asadar's fucking insane game</h1>
+    </head>
 <style>
     body{background-color: ivory;}
     canvas{border: 2px solid red;}
@@ -50,11 +53,31 @@
              player.y += player.speed;
          }
      });
+     /*window.onkeydown = function(event) {
+         var kc = event.keyCode;
+         event.preventDefault();
+         
+         if (kc === 37) Keys.left = true;
+         else if (kc === 38) Keys.up = true;
+         else if (kc === 39) Keys.right = true;
+         else if (kc === 40) Keys.down = true;
+     };
+     
+     window.onkeyup = function(event){
+         var kc = event.keycode;
+         e.preventDefault();
+         if (kc === 37) Keys.left = false;
+         else if (kc === 38) Keys.up = false;
+         else if (kc === 39) Keys.right = false;
+         else if (kc === 40) Keys.down = false;
+     };
+     */
      
      window.onload = function(){
          var fps = 60;
          setInterval(function(){
              drawEverything();
+            // moveEverything();
          }, 1000/fps);
      }
      function drawEverything(){
@@ -63,10 +86,23 @@
          drawBlock(100+BLOCK_WIDTH,100);
          drawBlock(100+(BLOCK_WIDTH*2), 100);
          drawBlock(100+(BLOCK_WIDTH*3), 100);
+         drawBlock(100+(BLOCK_WIDTH*4), 100);
          playerA();
      }
      function moveEverything(){
+         if (Keys.up){
+             player.y += player.speed;
+         }
+         else if (Keys.down){
+             player.y -= player.speed;
+         }
          
+         if (Keys.left){
+             player.x += player.speed;
+         }
+         else if (keys.right){
+             player.x -= player.speed;
+         }
      }
      function drawBlock(leftX, topY){
          canvasContext.fillStyle = "yellow";
